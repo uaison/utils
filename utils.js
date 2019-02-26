@@ -1,7 +1,7 @@
 /**
  * 传入数字和小数位数，返回千分制格式，逢千位逗号隔开
  *
- * @param {number[]} num: 要转换的数字
+ * @param {number} num: 要转换的数字
  * @param {number} fixed: 小数位数
  * @return {string}
  */
@@ -46,7 +46,7 @@ function Ajax() {
   }
 
   // 发送请求
-  function send({url, method='GET', data=null, async=rue, header={'Content-Type':'application/json' }}) {
+  function send({url, method='GET', data=null, async=rue, header={'Content-Type':'application/x-www-form-urlencoded' }}) {
     let URL = url;
     const METHOD = method.toUpperCase();
 
@@ -82,7 +82,44 @@ function Ajax() {
   }
 }
 
+/**
+ * 冒泡排序法
+ * @param {number[]} arr: 要排序的数组
+ * @return {number[]}
+ */
+function bubleSort(arr) {
+  let len = arr.length;
+  for(let outer = len; outer >= 2; outer --){
+    for(let inner = 0; inner < len-1; inner ++) {
+      if(arr[inner] < arr[inner + 1]) {
+        [arr[inner], arr[inner + 1]] = [arr[inner + 1], arr[inner]]
+      }
+    }
+  }
+  return arr;
+}
+
+/**
+ * 选择排序法
+ * @param {number[]} arr: 要排序的数组
+ * @return {number[]}
+ */
+ function selectSort(arr) {
+  let len = arr.length;
+  for(let i = 0; i < len - 1; i++) {
+    for( let j = i; j< len; j++) {
+      if(arr[i] < arr [j]) {
+        [arr[i], arr[j]] = [arr[j], arr[i]]
+      }
+    }
+  }
+  return arr;
+ }
+
+
 export default = {
-  numberSplit: numberSplit,
-  ajax: ajax
+  numberSplit,
+  ajax,
+  bubleSort,
+  selectSort
 }
