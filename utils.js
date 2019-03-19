@@ -1,16 +1,18 @@
 /**
- * 传入数字和小数位数，返回千分制格式，逢千位逗号隔开
+ * 传入数字和小数位数，返回千分制格式，逢千位逗号隔开（numberSplit(12345678.9012, 3) => "12,345,678.901"）
  *
  * @param {number} num: 要转换的数字
  * @param {number} fixed: 小数位数
  * @return {string}
  */
 function numberSplit(num, fixed=0){
-  str = num+'';
+  // 自带方法实现更简洁，但是小数位数最多只有3位，fixed的值传再大也只有3位,但是满足正常需求足够了（toLocaleString 方法不支持数字字面量）
+  // return Number(num.toFixed(fixed)).toLocaleString();
+  str = num + '';
   if(str.indexOf('.')>-1){
-    let inte = str.split('.')[0];
-    let dotted = str.split('.')[1];
-    let  float = inte.split('').reverse().join('').replace(/(\d{3})/g,"$1,").split('').reverse().join('') + "."+ dotted.slice(0,fixed);
+    let arr = str.split('.');
+    let [inte, dotted] = arr;
+    let  float = inte.split('').reverse().join('').replace(/(\d{3})/g,"$1,").split('').reverse().join('') + fixed > 0 ? "." + dotted.slice(0,fixed):'';
     if(float.startsWith(',')){float = float.substr(1)}
     return float
   }
