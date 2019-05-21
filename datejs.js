@@ -73,19 +73,10 @@ Date.prototype.subtract = Date.prototype.subtract || function ( count=0, subtrac
 /**
  * 获取指定日期所在季节信息
  * @type {Function}
- * @return {Object} season: '第几个季度', info: 当前季度信息
+ * @return {Number} 第几个季度
  */
 Date.prototype.getSeason = Date.getSeason || function() {
-    let dt = new Date(this);
-    let monthArr = [[1,2,3],[4,5,6],[7,8,9],[10,11,12]];
-    let season = ['春季','夏季','秋季','冬季'];
-    let month = dt.getMonth()+1;
-    let result = {};
-    for(let i =0;i < 4; i++){
-        if(~monthArr[i].indexOf(month)) {
-            result.season = i+1;
-            result.info = season[i];
-            return result;
-        }
-    }
+    let month = this.getMonth()+1;
+    let season = ~~((this.getMonth()+3)/3);
+    return season;
 };
