@@ -1,3 +1,18 @@
+/**
+ * 创建一个新的日期对象
+ * @param {*} dt 入参为日期类型、时间戳、字符串
+ * @return {Date} 返回新创建的日期对象
+ */
+function createDate(dt) {
+    switch (Object.prototype.toString.call(dt)) {
+        case '[object Date]':
+        case '[object Number]':
+            return new Date(dt);
+        default:
+            return new Date(dt.replace(/-/g, '/'));
+    }
+}
+
 // 日期运算-按年加减，传负数为减法
 Date.prototype.addYear = Date.prototype.addYear || function(count) {
     this.setFullYear(this.getFullYear() + count);
@@ -24,7 +39,7 @@ Date.prototype.addMinute = Date.prototype.addMinute || function(count) {
     return this;
 };
 // 日期运算-按秒加减，传负数为减法
-Date.prototype.addSecond = Date.prototype.addSecond ||| function(count) {
+Date.prototype.addSecond = Date.prototype.addSecond || function(count) {
     this.setSeconds(this.getSeconds() + count);
     return this;
 };
@@ -71,14 +86,13 @@ Date.prototype.subtract = Date.prototype.subtract || function ( count=0, subtrac
     return this.add(-count, subtractType);
 };
 /**
- * 获取指定日期所在季节信息
+ * 获取指定日期所在季度信息
  * @type {Function}
- * @return {Number} 第几个季度
+ * @return {Number} 第几个季度 (1,2,3,4)
  */
-Date.prototype.getSeason = Date.getSeason || function() {
-    let month = this.getMonth()+1;
-    let season = ~~((this.getMonth()+3)/3);
-    return season;
+Date.prototype.getQuarter = Date.getQuarter || function() {
+    let quarter = ~~((this.getMonth()+3)/3);
+    return quarter;
 };
 /**
  * 日期格式化
@@ -101,3 +115,24 @@ Date.prototype.format = Date.prototype.format || function (fmt='yyyy-MM-dd HH:mm
   return fmt;
 }
 
+/**
+ * 返回指定日期所在月份的开始日期
+ * @type {Function}
+ * @return {Date} 返回指定日期所在月份的开始日期
+ */
+Date.prototype.getMonthStart = Date.prototype.getMonthStart || function() {
+    this.setDate(1);
+    this.setHours(0, 0, 0, 0);
+    return this;
+}
+
+/**
+ * 返回指定日期所在月份的结束日期
+ * @type {Function}
+ * @return {String} 返回指定日期所在月份的结束日期
+ */
+Date.prototype.getMonthEnd = Date.prototype.getMonthEnd || function() {
+    this.add(1, 'month').setDate(0);
+    this.setHours(0, 0, 0, 0);
+    return this;
+}
