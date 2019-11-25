@@ -119,7 +119,7 @@ function bubleSort(arr) {
  }
 
 
-export default = {
+export default {
   numberSplit,
   ajax,
   bubleSort,
