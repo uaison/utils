@@ -136,3 +136,23 @@ Date.prototype.getMonthEnd = Date.prototype.getMonthEnd || function() {
     this.setHours(0, 0, 0, 0);
     return this;
 }
+
+/**
+ * 判断日期是否在date之前
+ * @type {Function}
+ * @param {Date, Number, String} date
+ * @return {Boolean}
+ */
+Date.prototype.isBefore = Date.prototype.isBefore || function(date) {
+    return this - createDate(date) < 0 
+}
+
+/**
+ * 判断日期是否在date之后
+ * @type {Function}
+ * @param {Date, Number, String} date
+ * @return {Boolean}
+ */
+Date.prototype.isAfter = Date.prototype.isBefore || function(date) {
+    return this - createDate(date) > 0 
+}
