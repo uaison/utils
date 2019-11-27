@@ -118,6 +118,21 @@ function bubleSort(arr) {
   return arr;
  }
 
+/**
+ * 字符串格式转换
+ * @param {string} str: 需要转换的字符串
+ * @param {string} type: big转为大驼峰CamelCase, small转为小驼峰camelCase,默认横杠连接camel-case
+ */
+ function transCamelCase(str, type) {
+   switch(type) {
+     case "big":
+       return str.replace(/[A-Z]/g, ($) => '-'+$.toLowerCase()).replace(/^\-|\-$/g, '');
+     case "small":
+       return str.replace(/(\W+)\w/g, ($, $1) => $.toUpperCase()).replace(/\W/g, '');
+     default:
+       return str.replace(/^\w|(\W+)\w/g, ($, $1) => $.toUpperCase()).replace(/\W/g, '');
+   }
+ }
 
 export default {
   numberSplit,
