@@ -119,24 +119,44 @@ function bubleSort(arr) {
  }
 
 /**
- * 字符串格式转换
+ * 字符串转为大驼峰CamelCase
  * @param {string} str: 需要转换的字符串
- * @param {string} type: big转为大驼峰CamelCase, small转为小驼峰camelCase,默认横杠连接camel-case
  */
- function transCamelCase(str, type) {
-   switch(type) {
-     case "big":
-       return str.replace(/[A-Z]/g, ($) => '-'+$.toLowerCase()).replace(/^\-|\-$/g, '');
-     case "small":
-       return str.replace(/(\W+)\w/g, ($, $1) => $.toUpperCase()).replace(/\W/g, '');
-     default:
-       return str.replace(/^\w|(\W+)\w/g, ($, $1) => $.toUpperCase()).replace(/\W/g, '');
-   }
- }
+function toBigCamelCase(str) {
+  return str.replace(/^\w|(\W+)\w/g, ($, $1) => $.toUpperCase()).replace(/\W/g, '');
+}
 
+/**
+ * 字符串转为小驼峰camelCase
+ * @param {string} str: 需要转换的字符串
+ */
+function toSmallCamelCase(str) {
+  return str.replace(/^[A-Z]/, $ => $.toLowerCase()).replace(/(\W+)\w/g, ($, $1) => $.toUpperCase()).replace(/\W/g, '');
+}
+
+/**
+ * 字符串转为短横连接kebab-case
+ * @param {string} str: 需要转换的字符串
+ */
+function toKebabCase(str) {
+  return str.replace(/^\w|(\W+)\w/g, ($, $1) => $.toUpperCase()).replace(/[A-Z]/g, ($) => '-'+$.toLowerCase()).replace(/^\-|\-$/g, '').replace(/\W+/g, '-');
+}
+
+/**
+ * 字符串转为下划线连接under_score_case
+ * @param {string} str: 需要转换的字符串
+ */
+function toUnderScoreCase(str) {
+  return str.replace(/^\w|(\W+)\w/g, ($, $1) => $.toUpperCase()).replace(/[A-Z]/g, ($) => '_'+$.toLowerCase()).replace(/^\_|\_$/g, '').replace(/\W/g, '');
+}
+  
 export default {
   numberSplit,
   ajax,
   bubleSort,
-  selectSort
+  selectSort,
+  toBigCamelCase,
+  toSmallCamelCase,
+  toKebabCase,
+  toUnderScoreCase,
 }
